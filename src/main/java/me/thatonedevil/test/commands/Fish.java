@@ -1,6 +1,5 @@
 package me.thatonedevil.test.commands;
 
-import com.sun.org.apache.bcel.internal.generic.PUSH;
 import me.thatonedevil.test.Main;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
@@ -14,6 +13,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static me.thatonedevil.test.Main.format;
 
 public class Fish implements Listener {
 
@@ -71,10 +72,6 @@ public class Fish implements Listener {
 
         }
 
-    }
-
-    private String format(String input) {
-        return ChatColor.translateAlternateColorCodes('&', input);
     }
 
     private void armorStand(Location loc, ItemStack item, String name) {

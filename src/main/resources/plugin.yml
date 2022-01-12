@@ -16,5 +16,6 @@ commands:
   test:
   menu:
   info:
+    description: Information about the plugin!
 
 

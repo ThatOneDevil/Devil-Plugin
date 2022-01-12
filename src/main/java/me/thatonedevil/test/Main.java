@@ -2,8 +2,10 @@ package me.thatonedevil.test;
 
 import me.thatonedevil.test.commands.*;
 import me.thatonedevil.test.events.Chat;
+import me.thatonedevil.test.events.JoinLeaveEvent;
 import me.thatonedevil.test.events.MenuListener;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -22,10 +24,10 @@ public final class Main extends JavaPlugin implements Listener {
 
         Fish Fish = new Fish(this);
 
-
         Bukkit.getPluginManager().registerEvents(new Chat(), this);
         Bukkit.getPluginManager().registerEvents(new MenuListener(), this);
         Bukkit.getPluginManager().registerEvents(new Info.MenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new JoinLeaveEvent(), this);
 
         getCommand("punish").setExecutor(new PunishCommands());
         getCommand("punish").setTabCompleter(new PunishCommands.punishTabCompleter());
@@ -34,17 +36,23 @@ public final class Main extends JavaPlugin implements Listener {
         getCommand("menu").setExecutor(new MenuCommand());
         getCommand("info").setExecutor(new Info());
 
-        recentMessages = new HashMap<>();
-
         Bukkit.getPluginManager().registerEvents(this, this);
         Bukkit.getPluginManager().registerEvents(new Fish(this), this);
+
+        recentMessages = new HashMap<>();
+
     }
 
     public HashMap<UUID, UUID> getRecentMessages() { return recentMessages; }
+
+    public static String format(String input) {
+        return ChatColor.translateAlternateColorCodes('&', input);
+    }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         recentMessages.remove(e.getPlayer().getUniqueId());
     }
+
 
 }
