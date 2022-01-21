@@ -3,6 +3,7 @@ package me.thatonedevil.test.commands;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,6 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static me.thatonedevil.test.Main.format;
 
@@ -64,12 +66,15 @@ public class Info implements CommandExecutor {
             inv.setItem(13, version);
             inv.setItem(15, Author);
 
+
+            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 0.5f);
             player.openInventory(inv);
 
 
         }
         return false;
     }
+
 
     public static class MenuListener implements Listener {
 

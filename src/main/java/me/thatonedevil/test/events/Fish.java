@@ -1,4 +1,4 @@
-package me.thatonedevil.test.commands;
+package me.thatonedevil.test.events;
 
 import me.thatonedevil.test.Main;
 import org.bukkit.*;
@@ -38,49 +38,50 @@ public class Fish implements Listener {
                 fish(player, itemStack, 5, 6f, "&f&lCOMMON", "&c&lCOD");
                 player.playEffect(item.getLocation(), Effect.VILLAGER_PLANT_GROW, 100);
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 5, 1);
-                armorStand(item.getLocation(), itemStack,"&c&lCOD");
+                armorStand(player, item.getLocation(), itemStack,"&c&lCOD");
                 break;
             case SALMON:
                 fish(player, itemStack, 10, 14f, "&f&lCOMMON", "&c&lSALMON");
                 player.playEffect(item.getLocation(), Effect.VILLAGER_PLANT_GROW, 100);
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 5, 1);
-                armorStand(item.getLocation(), itemStack, "&c&lSALMON");
+                armorStand(player, item.getLocation(), itemStack, "&c&lSALMON");
                 break;
             case PUFFERFISH:
                 fish(player, itemStack, 50, 13f, "&6&lLEGENDARY", "&6&lPUFFERFISH");
                 player.playEffect(item.getLocation(), Effect.VILLAGER_PLANT_GROW, 100);
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 5, 1);
-                armorStand(item.getLocation(), itemStack, "&6&lPUFFERFISH");
+                armorStand(player, item.getLocation(), itemStack, "&6&lPUFFERFISH");
                 break;
             case TROPICAL_FISH:
                 fish(player, itemStack, 100, 13f, "&9&lRARE", "&6&lTROPICAL FISH");
                 player.playEffect(item.getLocation(), Effect.DRAGON_BREATH, 100);
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 5, 1);
-                armorStand(item.getLocation(), itemStack, "&6&lTROPICAL FISH");
+                armorStand(player, item.getLocation(), itemStack, "&6&lTROPICAL FISH");
                 break;
             case TRIPWIRE_HOOK:
                 fish(player, itemStack, 100, 0f, "&7&lUNCOMMON", "&6&lTRIPWIRE HOOK");
                 player.playEffect(item.getLocation(), Effect.DRAGON_BREATH, 100);
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 5, 1);
-                armorStand(item.getLocation(), itemStack, "&6&lTRIPWIRE HOOK");
+                armorStand(player, item.getLocation(), itemStack, "&6&lTRIPWIRE HOOK");
                 break;
             default:
                 player.playEffect(item.getLocation(), Effect.VILLAGER_PLANT_GROW, 100);
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 5, 1);
-                armorStand(item.getLocation(), itemStack, "");
+                armorStand(player, item.getLocation(), itemStack, itemStack.toString());
                 break;
 
         }
 
     }
 
-    private void armorStand(Location loc, ItemStack item, String name) {
+    private void armorStand(Player player, Location loc, ItemStack item, String name) {
         ArmorStand armorStand = (ArmorStand) Bukkit.getWorld("world").spawnEntity(loc, EntityType.ARMOR_STAND);
         armorStand.setInvisible(true);
         armorStand.getEquipment().getHelmet().setType(item.getType());
         armorStand.setHelmet(item);
         armorStand.setCustomName(format("&b&l❤ " + ChatColor.DARK_AQUA + name + " &b&l❤ "));
         armorStand.setCustomNameVisible(true);
+        armorStand.setInvulnerable(true);
 
         armorStand.setGravity(false);
 

@@ -13,24 +13,25 @@ import java.util.concurrent.TimeUnit;
 
 public class CooldownMessage implements CommandExecutor {
 
-    private Cache<UUID, Long> cooldown = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.SECONDS).build();
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
-            if (!cooldown.asMap().containsKey(player.getUniqueId())) {
-                player.sendMessage(ChatColor.GREEN + "It worked");
-                cooldown.put(player.getUniqueId(), System.currentTimeMillis() + 5000);
+        Cache<UUID, Long> cooldown = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.SECONDS).build();
 
-            } else {
-                long distance = cooldown.asMap().get(player.getUniqueId()) - System.currentTimeMillis();
+            if (sender instanceof Player) {
+                Player player = (Player) sender;
+                if (!cooldown.asMap().containsKey(player.getUniqueId())) {
+                    player.sendMessage(ChatColor.GREEN + "It worked");
+                    cooldown.put(player.getUniqueId(), System.currentTimeMillis() + 5000);
 
-                player.sendMessage(ChatColor.RED + "You must wait " + TimeUnit.MILLISECONDS.toSeconds(distance) + "to usee this again!");
+                } else {
+                    long distance = cooldown.asMap().get(player.getUniqueId()) - System.currentTimeMillis();
+
+                    player.sendMessage(ChatColor.RED + "You must wait " + TimeUnit.MILLISECONDS.toSeconds(distance) + "to usee this again!");
+                }
+
             }
-
+            return false;
         }
-        return false;
-    }
+
 }

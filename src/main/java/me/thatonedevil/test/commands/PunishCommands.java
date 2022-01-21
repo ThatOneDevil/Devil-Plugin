@@ -16,13 +16,14 @@ import java.util.Calendar;
 import java.util.List;
 
 public class PunishCommands implements CommandExecutor {
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if(sender instanceof Player) {
+        if (sender instanceof Player) {
             Player player = (Player) sender;
 
-            if(args.length == 3) {
+            if (args.length == 3) {
                 if (Bukkit.getPlayer(args[0]) != null) {
                     Player target = (Player) Bukkit.getPlayer(args[0]);
 
@@ -43,7 +44,7 @@ public class PunishCommands implements CommandExecutor {
                         default:
                             player.sendMessage(ChatColor.RED + "Invalid usage! Use /punish <player name> <kick/ban/tempban <reason>");
                     }
-                }else {
+                } else {
                     player.sendMessage(ChatColor.RED + "This player is not online!");
                 }
 
@@ -55,6 +56,7 @@ public class PunishCommands implements CommandExecutor {
         return false;
 
     }
+
     public static class punishTabCompleter implements TabCompleter {
 
         @Override

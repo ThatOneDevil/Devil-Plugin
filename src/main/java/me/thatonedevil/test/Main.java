@@ -1,7 +1,9 @@
 package me.thatonedevil.test;
 
+import me.thatonedevil.test.PageGui.PlayersCommand;
 import me.thatonedevil.test.commands.*;
 import me.thatonedevil.test.events.Chat;
+import me.thatonedevil.test.events.Fish;
 import me.thatonedevil.test.events.JoinLeaveEvent;
 import me.thatonedevil.test.events.MenuListener;
 import org.bukkit.Bukkit;
@@ -10,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -20,6 +23,7 @@ public final class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+
         System.out.println("The plugin has started!");
 
         Fish Fish = new Fish(this);
@@ -28,6 +32,8 @@ public final class Main extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new MenuListener(), this);
         Bukkit.getPluginManager().registerEvents(new Info.MenuListener(), this);
         Bukkit.getPluginManager().registerEvents(new JoinLeaveEvent(), this);
+        Bukkit.getPluginManager().registerEvents(this, this);
+        Bukkit.getPluginManager().registerEvents(new Fish(this), this);
 
         getCommand("punish").setExecutor(new PunishCommands());
         getCommand("punish").setTabCompleter(new PunishCommands.punishTabCompleter());
@@ -35,9 +41,7 @@ public final class Main extends JavaPlugin implements Listener {
         getCommand("preply").setExecutor(new Reply(this));
         getCommand("menu").setExecutor(new MenuCommand());
         getCommand("info").setExecutor(new Info());
-
-        Bukkit.getPluginManager().registerEvents(this, this);
-        Bukkit.getPluginManager().registerEvents(new Fish(this), this);
+        getCommand("players").setExecutor(new PlayersCommand());
 
         recentMessages = new HashMap<>();
 

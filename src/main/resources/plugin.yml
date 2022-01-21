@@ -13,9 +13,9 @@ commands:
     description: Sends a private message to someone
   preply:
     description: Reply to the private message sent by someone
-  test:
+  cooldown:
+    description: Command cooldown
   menu:
+    description: Menu
   info:
     description: Information about the plugin!
-
-
